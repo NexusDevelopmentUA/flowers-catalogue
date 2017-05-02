@@ -7,16 +7,27 @@ using Android.Widget;
 using UniversalImageLoader.Core;
 using UniversalImageLoader.Core.Listener;
 using Android.Graphics.Drawables;
+using Square.Picasso;
 
 namespace Flowers_shop
 {
-    [Activity(Label = "Shop_activity", MainLauncher = true)]
+    [Activity(Label = "Shop_activity")]
     public class Shop_activity : Activity
     {
         GridView gridView;
         List<ImageView> images = new List<ImageView>();
         List<string> titles = new List<string>();
         string[] imgs = { "clematis_arabella.jpg" ,
+                          "delphinium_king_arthur.jpg",
+                          "hibiscus_osiau_blue.jpg",
+                          "peaonia_garden_treasure.jpg",
+                          "potentila_marian_robin.jpg",
+        "clematis_arabella.jpg" ,
+                          "delphinium_king_arthur.jpg",
+                          "hibiscus_osiau_blue.jpg",
+                          "peaonia_garden_treasure.jpg",
+                          "potentila_marian_robin.jpg",
+        "clematis_arabella.jpg" ,
                           "delphinium_king_arthur.jpg",
                           "hibiscus_osiau_blue.jpg",
                           "peaonia_garden_treasure.jpg",
@@ -28,20 +39,10 @@ namespace Flowers_shop
 
             SetContentView(Resource.Layout.Shop);
             var config = ImageLoaderConfiguration.CreateDefault(ApplicationContext);
-
             foreach (var str in imgs)
             {
                 ImageView temp_image = new ImageView(this);
                 ImageLoader loader = ImageLoader.Instance;
-                loader.Init(config);
-                loader.LoadImage(
-                                    "drawable://" + Resource.Drawable.clematis_arabella,
-                                    new ImageLoadingListener(
-                                        loadingComplete: (imageUri, view, loadedImage) => {
-                                            ImageView tmp = new ImageView(this);
-                                            tmp.SetImageBitmap(loadedImage);
-                                            images.Add(tmp);
-                                        }));
                 titles.Add(str);
             }
 
@@ -93,9 +94,8 @@ namespace Flowers_shop
                 view = inflater.Inflate(Resource.Layout.gridview, null);
                 TextView txtView = view.FindViewById<TextView>(Resource.Id.textView);
                 ImageView imgView = view.FindViewById<ImageView>(Resource.Id.imageView);
-                txtView.Text = titles[position];
-                BitmapDrawable bmpdr = (BitmapDrawable)images[position].Drawable; //geting bitmap
-                imgView.SetImageBitmap(bmpdr.Bitmap);
+                txtView.Text = titles[position].Replace(".jpg","");
+                Picasso.With(context).Load("http://i.imgur.com/DvpvklR.png").Into(imgView);
             }
             else
             {
@@ -103,5 +103,6 @@ namespace Flowers_shop
             }
             return view;
         }
+
     }
 }
