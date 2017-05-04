@@ -10,12 +10,13 @@ using Android.Content;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Android.Support.V7.App;
+using SupportFragment = Android.Support.V4.App.Fragment;
 
 namespace Flowers_shop
 {
     [Activity(Label = "Flowers_shop", Icon = "@drawable/icon", Theme = "@style/Theme.AppCompat.Light")]
 
-    public class List_News_activity : AppCompatActivity
+    public class List_News_activity : ActionBarActivity
     {
         const string url = "http://www.segodnya.ua";
         RecyclerView mRecyclerView;

@@ -5,10 +5,12 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using UniversalImageLoader.Core;
-using UniversalImageLoader.Core.Listener;
-using Android.Graphics.Drawables;
 using Square.Picasso;
-
+using SupportToolbar = Android.Support.V7.Widget.Toolbar;
+using Android.Support.V7.App;
+using Android.Support.V4.Widget;
+using System.Collections.Generic;
+using SupportFragment = Android.Support.V4.App.Fragment;
 namespace Flowers_shop
 {
     [Activity(Label = "Shop_activity")]
@@ -49,7 +51,7 @@ namespace Flowers_shop
             GridViewAdapter adapter = new GridViewAdapter(this, images, titles);
             gridView = FindViewById<GridView>(Resource.Id.grid_view_image_text);
             gridView.Adapter = adapter;
-            
+
         }
     }
     public class GridViewAdapter : BaseAdapter
@@ -101,8 +103,37 @@ namespace Flowers_shop
             {
                 view = (View)convertView;
             }
+            view.Click += View_Click;
             return view;
         }
 
+        private void View_Click(object sender, System.EventArgs e)
+        {
+            var transaction = FragmentManager.BeginTransaction();
+        }
+
+        private void ShowFragment(SupportFragment fragment)
+        {
+            if (fragment.IsVisible)
+            {
+                return;
+            }
+
+            var trans = FragmentManager.BeginTransaction();
+
+            //trans.SetCustomAnimations(Resource.Animation.slide_in, Resource.Animation.slide_out, Resource.Animation.slide_in, Resource.Animation.slide_out);
+
+            fragment.View.BringToFront();
+            mCurrentFragment.View.BringToFront();
+
+            trans.Hide(mCurrentFragment);
+            trans.Show(fragment);
+
+            trans.AddToBackStack(null);
+            mStackFragments.Push(mCurrentFragment);
+            trans.Commit();
+
+            mCurrentFragment = fragment;
+        }
     }
 }

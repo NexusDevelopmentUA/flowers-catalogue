@@ -17,8 +17,8 @@ using Android.Support.V7.App;
 
 namespace Flowers_shop
 {
-    [Activity(Label = "News_Activity")]
-    public class Separate_News_Activity : AppCompatActivity
+    [Activity(Label = "News_Activity", Theme = "@style/Theme.AppCompat.Light")]
+    public class Separate_News_Activity : ActionBarActivity
     {
         ImageView imgview;
         TextView title;
